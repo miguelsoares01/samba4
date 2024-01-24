@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Função para criar pastas e grupos
+create_folders_and_groups() {
+    local module=$1
+    local folders=("${@:2}")
+
+    # Criar pastas no Samba
+    mkdir -p "$module"
+    for folder in "${folders[@]}"; do
+        mkdir -p "$module/$folder"
+    done
+
+    # Criar grupos no Samba com o mesmo nome das pastas
+    for folder in "${folders[@]}"; do
+        groupadd "$folder"
+        chown :"$folder" "$module/$folder"
+        chmod 2770 "$module/$folder"
+    done
+}
+
+# Criar estrutura para Módulo Gestor
+module_gestor=("csd" "diretor" "diretor_adjunto" "gerente_laboral" "gerente_patrimonio")
+create_folders_and_groups "MODULO_GESTOR" "${module_gestor[@]}"
+
+# Criar estrutura para Módulo Saúde
+module_saude=("enfermagem" "farmacia" "medico" "odontologia" "psicologia" "psiquiatria" "servico_social" "terapeuta_ocupacional")
+create_folders_and_groups "MODULO_SAUDE" "${module_saude[@]}"
+
+# Criar estrutura para Módulo Tratamento Penal
+module_tratamento_penal=("comissao_tecnica_classificacao" "conselho_disciplinar" "defensoria_publica" "juridico")
+create_folders_and_groups "MODULO_TRATAMENTO_PENAL" "${module_tratamento_penal[@]}"
+
+# Criar estrutura para Módulo Administrativo
+module_administrativo=("almoxarivado" "apoio_modulo_gestor" "dipron" "informatica" "recepcao")
+create_folders_and_groups "MODULO_ADMINISTRATIVO" "${module_administrativo[@]}"
+
+# Criar estrutura para Módulo Ensino
+module_ensino=("cispe" "educacao" "empresas" "senai" "sesc")
+create_folders_and_groups "MODULO_ENSINO" "${module_ensino[@]}"
+
+# Criar estrutura para Módulo Segurança
+module_seguranca=("equipe_a" "equipe_b" "equipe_c" "equipe_d" "paiol" "setor_inteligencia" "sigepen")
+create_folders_and_groups "MODULO_SEGURANCA" "${module_seguranca[@]}"
+
+# Criar grupos para pastas com prefixo "MODULO_" e atribuir permissões
+for folder in MODULO_GESTOR MODULO_SAUDE MODULO_TRATAMENTO_PENAL MODULO_ADMINISTRATIVO MODULO_ENSINO MODULO_SEGURANCA; do
+    groupadd "$folder"
+    chown :"$folder" "$folder"
+    chmod 2770 "$folder"
+done
+
+# Reiniciar o serviço Samba (o comando pode variar dependendo do sistema)
+service smbd restart
