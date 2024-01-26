@@ -32,7 +32,7 @@ module_tratamento_penal=("comissao_tecnica_classificacao" "conselho_disciplinar"
 create_folders_and_groups "MODULO_TRATAMENTO_PENAL" "${module_tratamento_penal[@]}"
 
 # Criar estrutura para Módulo Administrativo
-module_administrativo=("almoxarivado" "apoio_modulo_gestor" "dipron" "informatica" "recepcao")
+module_administrativo=("almoxarifado" "apoio_modulo_gestor" "dipron" "informatica" "recepcao")
 create_folders_and_groups "MODULO_ADMINISTRATIVO" "${module_administrativo[@]}"
 
 # Criar estrutura para Módulo Ensino
