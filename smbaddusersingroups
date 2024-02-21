@@ -1,0 +1,11 @@
+#!/bin/bash
+#scrip para adicionar varios usuarios em um grupo
+users=("marcio.monteiro" "diego.lobato" "felipe.nobrega" "helio.silva" "gomes.neto" "jorge.martins" "marcelo.alcantara" "marcio.araujo" "paulo.ferreira" "rubens.silva" "fabiano.vale" "genilvo.santos" "hamilton.barros" "iury.nascimento" "jadson.figueiredo" "jeferson.vital" "joao.fonseca" "luzimar.filho" "joventino.junior" "conceicao.carvalho" "misael.ferreira" "paulo.neres" "antonio.sabino" "deike.sousa" "francisco.marcos" "willamy.pimenta" "geibson.hora" "lucio.silva" "ribamar.filho" "william.filho" "julio.melo" "ednardo.silveira" "antonio.melo" "brunno.porto" "enrique.valeriano" "felipe.meneses" "francisco.maia" "ricardo.reboucas")
+
+group_name="filmes"
+
+for user in "${users[@]}"
+do
+   # Adicionar usuário ao grupo "filmes"
+   sudo usermod -aG $group_name $user
+done
