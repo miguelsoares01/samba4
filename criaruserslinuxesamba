@@ -1,0 +1,14 @@
+#!/bin/bash
+#script para criar usuarios linux e samba com senha
+users=("marcio.monteiro" "diego.lobato" "felipe.nobrega" "helio.silva" "gomes.neto" "jorge.martins" "marcelo.alcantara" "marcio.araujo" "paulo.ferreira" "rubens.silva" "fabiano.vale" "genilvo.santos" "hamilton.barros" "iury.nascimento" "jadson.figueiredo" "jeferson.vital" "joao.fonseca" "luzimar.filho" "joventino.junior" "conceicao.carvalho" "misael.ferreira" "paulo.neres" "antonio.sabino" "deike.sousa" "francisco.marcos" "willamy.pimenta" "geibson.hora" "lucio.silva" "ribamar.filho" "william.filho" "julio.melo" "ednardo.silveira" "antonio.melo" "brunno.porto" "enrique.valeriano" "felipe.meneses" "francisco.maia" "ricardo.reboucas")
+
+common_password="sap1100"  # Substitua por uma senha forte e segura
+
+for user in "${users[@]}"
+do
+   # Criar usuário no sistema Linux com senha
+   sudo useradd -m -p $(openssl passwd -1 $common_password) $user
+
+   # Configurar senha no Samba
+   echo -e "$common_password\n$common_password" | sudo smbpasswd -a $user
+done
